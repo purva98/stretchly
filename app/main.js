@@ -20,8 +20,11 @@ let microbreakWin = null
 let breakWin = null
 let aboutWin = null
 let settingsWin = null
+let pauseWin = null
 let settings
+let customizePause
 let isOnIndefinitePause
+let time
 
 global.shared = {
   isNewVersion: false
@@ -367,6 +370,26 @@ function showSettingsWindow () {
   })
 }
 
+function showPauseWindow () {
+  if (pauseWin) {
+    pauseWin.show()
+    return
+  }
+  const modalPath = `file://${__dirname}/customizePause.html`
+  pauseWin = new BrowserWindow({
+    icon: `${__dirname}/images/stretchly_18x18.png`,
+    x: displaysX(),
+    y: displaysY(),
+    resizable: false,
+    backgroundColor: settings.get('mainColor'),
+    title: i18next.t('customizePause.pause', {version: app.getVersion()})
+  })
+  pauseWin.loadURL(modalPath)
+  pauseWin.on('closed', () => {
+    pauseWin = null
+  })
+}
+
 function saveDefaultsFor (array, next) {
   for (let index in array) {
     settings.set(array[index], defaultSettings[array[index]])
@@ -457,6 +480,14 @@ function getTrayMenu () {
           label: i18next.t('main.indefinitely'),
           click: function () {
             pauseBreaks(1, true)
+          }
+        },{
+          label: i18next.t('main.customize'),
+           click: function () {
+             showPauseWindow()
+             pauseBreaks(settings.get('pauseHour')*3600*1000)
+             //breakPlanner.reset()
+             //updateToolTip()
           }
         }
       ]
@@ -632,4 +663,16 @@ ipcMain.on('change-language', function (event, language) {
   if (settingsWin) {
     settingsWin.webContents.send('renderSettings', settings.data)
   }
+})
+
+ipcMain.on('pause-setting', function (event, key, value) {
+  settings.set(key, value)
+  pauseWin.webContents.send('renderSettings',settings.data)
+  appIcon.setContextMenu(getTrayMenu())
+})
+
+
+ipcMain.on('send-pauseSettings', function (event) {
+    pauseWin.webContents.send('renderSettings', settings.data)
+    console.log(settings.data)
 })

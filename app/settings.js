@@ -26,6 +26,15 @@ let breakDurationMinus = document.getElementById('breakDurationMinus')
 let breakDuration = document.getElementById('breakDuration')
 let realBreakInterval = document.getElementById('realBreakInterval')
 
+// let pauseHourMinus = document.getElementById('pauseHourMinus')
+// let pauseHour = document.getElementById('pauseHour')
+// let pauseHourPlus = document.getElementById('pauseHourPlus')
+//
+// let pauseMinuteMinus = document.getElementById('pauseMinuteMinus')
+// let pauseMinute = document.getElementById('pauseMinute')
+// let pauseMinutePlus = document.getElementById('pauseMinutePlus')
+
+
 document.addEventListener('dragover', event => event.preventDefault())
 document.addEventListener('drop', event => event.preventDefault())
 
@@ -77,6 +86,31 @@ breakDurationMinus.addEventListener('click', function (e) {
   }
 })
 
+// pauseHourPlus.addEventListener('click', function (e) {
+//   if (pauseHour.innerHTML !== '5') {
+//     ipcRenderer.send('pause-setting', 'pauseHour', (parseInt(pauseHour.innerHTML, 10) + 1) * 1000)
+//   }
+// })
+//
+//  pauseHourMinus.addEventListener('click', function (e) {
+//   if (pauseHour.innerHTML !== '0') {
+//     ipcRenderer.send('save-setting', 'pauseHour', (parseInt(pauseHour.innerHTML, 10) - 1) * 1000)
+//   }
+// })
+//
+// pauseMinutePlus.addEventListener('click', function (e) {
+//   if (pauseMinute.innerHTML !== '55') {
+//     ipcRenderer.send('save-setting', 'pauseMinute', (parseInt(pauseMinute.innerHTML, 10) + 5) * 1000 * 60)
+//   }
+// })
+//
+// pauseMinuteMinus.addEventListener('click', function (e) {
+//   if (pauseMinute.innerHTML !== '0') {
+//     ipcRenderer.send('save-setting', 'pauseMinute', (parseInt(pauseMinute.innerHTML, 10) - 5) * 1000 * 60)
+//   }
+// })
+
+
 ipcRenderer.on('renderSettings', (event, data) => {
   let enableElements = document.getElementsByClassName('enable')
   for (let i = 0; i < enableElements.length; i++) {
@@ -108,6 +142,8 @@ ipcRenderer.on('renderSettings', (event, data) => {
   breakInterval.innerHTML = data['breakInterval']
   breakDuration.innerHTML = data['breakDuration'] / 1000 / 60
   realBreakInterval.innerHTML = data['microbreakInterval'] / 1000 / 60 * (data['breakInterval'] + 1)
+  // pauseMinute.innerHTML = data['pauseMinute'] / 1000 / 60
+  // pauseHour.innerHTML = data['pauseHour'] / 1000
 
   document.body.style.background = data['mainColor']
 

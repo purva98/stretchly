@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title data-i18next="customizePause.pause"></title>
+    <link rel="stylesheet" type="text/css" href="css/app.css">
+  </head>
+  <body>
+    <div class="customizePause">
+      <h2 data-i18next="customizePause.pause"></h2>
+      <p>
+        <span id="pauseHourMinus" class="pointer">-</span>
+        <span id="pauseHour"></span>
+        <span id="pauseHourPlus" class="pointer">+</span>
+        <span data-i18next="customizePause.hour"></span>
+        <span id="pauseMinuteMinus" class="pointer">-</span>
+        <span id="pauseMinute"></span>
+        <span id="pauseMinutePlus" class="pointer">+</span>
+        <span data-i18next="customizePause.minutes"></span>
+      </p>
+    </div>
+    <script>
+      require('./customizePause.js')
+    </script>
+  </body>
+</html>

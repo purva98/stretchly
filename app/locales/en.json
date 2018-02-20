@@ -9,6 +9,7 @@
     "about": "About",
     "becomePatron": "Become a Patron",
     "toBreak": "break",
+    "customize": "customize",
     "toMicrobreak": "microbreak",
     "skipToTheNext": "Skip to the next",
     "resume": "Resume",
@@ -90,6 +91,7 @@
     "notifyBeforeBreakStarts": "notify before break starts",
     "notifyBeforeMicrobreakStarts": "notify before microbreak starts",
     "monitorIdleTime": "monitor system idle time for natural breaks",
+    "showOnAllScreens": "breaks are shown on all monitors",
     "language": "language",
     "resetToDefaults": "reset to defaults"
   },
